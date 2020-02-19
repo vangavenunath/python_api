@@ -19,10 +19,30 @@ class UserTimeLogOpsApi(Resource):
         print(request.json)
         return 'Success', 201
 
+class AdminTimeLogApi(Resource):
+    def post(self):
+        print("UserTimeLogApi POST method is called")
+        print(request.json)
+        query =  "SELECT username, create_date, start_time, end_time, comment FROM v_user_log where create_date >= '"+request.json['from_date']+"' AND create_date <= '"+request.json['to_date']+"' AND username IN " + str(request.json['username'])
+        query = query.replace('[', '(').replace(']', ')')
+        print(query)
+        out = runQuery(query)
+        return out, 200
+
 class UserTimeLogApi(Resource):
-    def get(self, username):
-        print("TasksApi GET method is called")
-        query =  "SELECT username, create_date, start_time, end_time, comment FROM v_user_log where username IN ( '" + username + "' )"
+    def post(self):
+        print("UserTimeLogApi POST method is called")
+        print(request.json)
+        query =  "SELECT username, create_date, start_time, end_time, comment FROM v_user_log where username IN " + str(request.json['username'])
+        query = query.replace('[', '(').replace(']', ')')
+        print(query)
+        out = runQuery(query)
+        return out, 200
+
+class UsersApi(Resource):
+    def get(self):
+        print("UsersApi GET method is called")
+        query =  "SELECT DISTINCT username FROM v_user_login WHERE username != 'admin'"
         print(query)
         out = runQuery(query)
         return out
