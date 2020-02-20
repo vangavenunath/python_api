@@ -23,7 +23,11 @@ class AdminTimeLogApi(Resource):
     def post(self):
         print("UserTimeLogApi POST method is called")
         print(request.json)
-        query =  "SELECT username, create_date, start_time, end_time, comment FROM v_user_log where create_date >= '"+request.json['from_date']+"' AND create_date <= '"+request.json['to_date']+"' AND username IN " + str(request.json['username'])
+        if str(request.json['username']) == '[]':
+            query = "SELECT username, create_date, start_time, end_time, comment FROM v_user_log where create_date >= '" + \
+                    request.json['from_date'] + "' AND create_date <= '" + request.json['to_date'] + "'"
+        else:
+            query =  "SELECT username, create_date, start_time, end_time, comment FROM v_user_log where create_date >= '"+request.json['from_date']+"' AND create_date <= '"+request.json['to_date']+"' AND username IN " + str(request.json['username'])
         query = query.replace('[', '(').replace(']', ')')
         print(query)
         out = runQuery(query)
