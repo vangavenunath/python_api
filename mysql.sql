@@ -80,3 +80,20 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2020-02-20 17:05:28
+
+
+
+CREATE TABLE v_user_leaves (
+	id INT  NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	username varchar(50),
+    leave_date date,
+    leave_status varchar(20),
+    last_updated datetime NOT NULL
+);
+
+
+INSERT INTO v_user_leaves
+SELECT 1,'user1','20200227','pending',now()
+commit;
+
+select username, leave_date, last_updated from v_user_leaves where leave_status = 'pending';

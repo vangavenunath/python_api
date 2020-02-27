@@ -33,9 +33,12 @@ def delete_user1():
 @app.route('/',methods = ['PUT'])
 def add_user_1():
     print(request.json)
-    print("INSERT INTO v_user_login(id, username, password, last_updated) VALUES (2, '" + request.json['username'] + "', '"+request.json['password']+"', '2020-02-14 12:00:00')")
-    out = runInsert("INSERT INTO v_user_login(id, username, password, last_updated) VALUES (%(id)s, '" + request.json['username'] + "', '"+request.json['password']+"', %(last_updated)s)" )
-    # out = ''
+    check_query = "select 1 from v_user_login where username = '" + \
+                  request.json['username'] + "'"
+    out = runQuery(check_query)
+    if not (out == '[[1]]'):
+        print("INSERT INTO v_user_login(id, username, password, last_updated) VALUES (2, '" + request.json['username'] + "', '"+request.json['password']+"', '2020-02-14 12:00:00')")
+        out = runInsert("INSERT INTO v_user_login(id, username, password, last_updated) VALUES (%(id)s, '" + request.json['username'] + "', '"+request.json['password']+"', %(last_updated)s)" )
     return out
 
 @app.route('/',methods = ['POST'])
