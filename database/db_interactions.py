@@ -42,6 +42,19 @@ def runQuery(query):
     res = error
   return json.dumps(res, cls=DateTimeEncoder)
 
+def runUpdate(query):
+  (conn, error) = getConnection()
+  if error == '':
+    cur = conn.cursor()
+    cur.execute(query)
+    conn.commit()
+    cur.close()
+    conn.close()
+    return "Success"
+  else:
+    res = error
+  return json.dumps(res, cls=DateTimeEncoder)
+
 def runInsert(query):
   (conn, error) = getConnection()
   res = ''

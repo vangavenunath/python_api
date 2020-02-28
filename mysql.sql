@@ -97,3 +97,14 @@ SELECT 1,'user1','20200227','pending',now()
 commit;
 
 select username, leave_date, last_updated from v_user_leaves where leave_status = 'pending';
+
+CREATE TABLE v_user_leaves (
+	id INT  NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	username varchar(50),
+    leave_date date,
+    leave_status varchar(20),
+    last_updated datetime NOT NULL
+);
+
+UPDATE v_user_leaves SET leave_status = 'pending' WHERE leave_status != 'pending' AND id != 0;
+commit;

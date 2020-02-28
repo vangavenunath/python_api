@@ -1,6 +1,6 @@
 from flask import Response, request
 from flask_restful import Resource
-from database.db_interactions import runInsert, runQuery
+from database.db_interactions import runInsert, runQuery, runUpdate
 
 class UserTimeLogOpsApi(Resource):
 
@@ -51,7 +51,7 @@ class LeavesApi(Resource):
         query =  "UPDATE v_user_leaves SET leave_status = '" + request.json['status'] + "' WHERE username = '" + \
                  request.json['username'] +"' and leave_date = '" + request.json['leave_date'] +"'"
         print(query)
-        out = runQuery(query)
+        out = runUpdate(query)
         return out, 200
 
 class UserTimeLogApi(Resource):
