@@ -17,8 +17,8 @@ def getConnection():
   error = ''
   cnx = ''
   try:
-    cnx = mysql.connector.connect(host='localhost', user='itccnet_venuuser',passwd='o&rWD#2].vhw',
-                                  database='itccnet_venu') #dev.itcc.net.au
+    cnx = mysql.connector.connect(host='localhost', user='root',passwd='',
+                                  database='itcc_venu') #dev.itcc.net.au
   except mysql.connector.Error as err:
     error = err
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:

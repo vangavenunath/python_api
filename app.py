@@ -44,6 +44,7 @@ def add_user_1():
 @app.route('/',methods = ['POST'])
 def check_login():
     out = runQuery("SELECT 1 FROM v_user_login where username = '" + request.json['username'] + "' AND password = '"+request.json['password']+"'" )
+    print(out)
     return out
 
 @app.route('/user',methods = ['GET'])
